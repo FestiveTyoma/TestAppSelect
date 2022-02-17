@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WatchFilm</string>
+    <string name="tv_text_main">Просмотр фильмов онлайн</string>
 </resources>
