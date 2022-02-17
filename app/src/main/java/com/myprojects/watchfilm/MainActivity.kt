@@ -1,11 +1,12 @@
 package com.myprojects.watchfilm
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.myprojects.watchfilm.POJO.Film
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,10 +16,11 @@ class MainActivity : AppCompatActivity() {
     private val apiKey:String = "cY1jUkIeVJzSIUGCr75BVMqfAJvgOsBM"
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: FilmRecyclerViewAdapter
-    lateinit var album: Film
+    lateinit var film: Film
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        recyclerView = findViewById(R.id.recyclerView)
         doMySearch()
     }
     private fun doMySearch() {
@@ -28,9 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         NetworkService.instance?.aPI?.getFilms(data)?.enqueue(object : Callback<Film> {
             override fun onResponse(call: Call<Film>, response: Response<Film>) {
-                album = response.body()!!
+                film = response.body()!!
                 recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                adapter = FilmRecyclerViewAdapter(this@MainActivity, album)
+                adapter = FilmRecyclerViewAdapter(this@MainActivity, film)
                 recyclerView.adapter = adapter
             }
 
